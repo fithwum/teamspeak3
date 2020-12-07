@@ -1,11 +1,12 @@
-FROM alpine:latest
+FROM fithwum/debian-base:stretch
 MAINTAINER fithwum
 
 # URL's for files
 ARG INSTALL_SCRIPT=https://raw.githubusercontent.com/fithwum/teamspeak3/master/files/Install_Script.sh
 
 # Install dependencies and folder creation
-RUN apk update && apk add --no-cache ca-certificates libstdc++ su-exec bash-completion tar \
+RUN apt-get -y update && apt-get clean \
+	&& rm -rf /var/lib/apt/lists/* \
 	&& mkdir -p /ts3server /ts3temp /ts3temp/inifiles /ts3temp/serverfiles \
 	&& chmod 777 -R /ts3server /ts3temp \
 	&& chown 99:100 -R /ts3server /ts3temp
